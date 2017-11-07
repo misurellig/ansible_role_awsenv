@@ -24,7 +24,7 @@ Role Variables
 | ---------               | -------- | -------                                                          |
 | awsenv_download_url     | yes      | https://github.com/mauromedda/awsenv/releases/download           |
 | awsenv_release_version  | yes      | 0.11.3                                                           |    
-| awsenv_release_platform | yes      | "{{ ansible_system|lower }}"                                     |     
+| awsenv_release_platform | yes      | "{{ ansible_system\|lower }}"                                     |     
 | awsenv_release_cpuset   | yes      | amd64                                                            |
 | awsenv_artifact         | yes      | "awsenv_{{ awsenv_release_platform }}_{{awsenv_release_cpuset}}" |
 
