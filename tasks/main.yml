@@ -1,0 +1,33 @@
+---
+# tasks file for ansible_role_awsenv
+- name: get awsenv artifact's checksum
+  get_url:
+    url: "{{ awsenv_download_url }}/{{ awsenv_release_version}}/SHA256SUMS"
+    dest: /tmp/awsenv_checksum
+
+- name: get awsenv checksum file content
+  shell: cat /tmp/awsenv_checksum
+  changed_when: false
+  register: awsenv_checksum
+
+- name: Dowload awsenv executable file
+  get_url:
+    url: "{{ awsenv_download_url }}/{{ awsenv_release_version}}/{{ awsenv_artifact }}"
+    dest: /usr/local/bin/awsenv
+    mode: 0755
+    checksum: "sha256:{{ item.split()[0] }}"
+  with_items: "{{ awsenv_checksum.stdout_lines }}"
+  when: item.split()[1] == awsenv_artifact
+
+- name: Copy profile.d file fir set_aws function
+  copy:
+    content: |
+      #!/bin/bash
+
+      function set_aws {
+        dir=$(pwd)
+        aws_environment=${dir##*providers/aws/}
+        eval $(awsenv shell ${aws_environment%%/*})
+      }
+    dest: /etc/profile.d/set_aws.sh
+    mode: 0555

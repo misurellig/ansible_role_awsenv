@@ -1,0 +1,18 @@
+galaxy_info:
+  author: misva
+  description: Ansible role that sets up awsenv utility
+  company:
+
+  license: BSD
+
+  min_ansible_version: 2.2
+
+  platforms:
+  - name: EL
+    versions:
+    - 7
+
+  galaxy_tags: [ "CentOS", "RedHat", "aws", "awsenv" ]
+
+dependencies:
+  

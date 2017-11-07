@@ -1,0 +1,20 @@
+---
+services: docker
+
+env:
+  - distro: centos7
+
+script:
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
+
+  # Run tests.
+  - chmod +x ${PWD}/tests/test.sh
+  - ${PWD}/tests/test.sh
+
+  # Ensure Ansible is installed (contrived... since it's already installed).
+  - 'docker exec --tty ${container_id} env TERM=xterm ansible --version'
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

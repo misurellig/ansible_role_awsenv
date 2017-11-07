@@ -1,0 +1,12 @@
+---
+# defaults file for ansible_role_awsenv
+awsenv_download_url: https://github.com/mauromedda/awsenv/releases/download
+
+awsenv_release_version: 0.11.3
+
+awsenv_release_platform: "{{ ansible_system|lower }}"
+
+# for possible values look at https://github.com/mauromedda/awsenv/releases
+awsenv_release_cpuset: amd64
+
+awsenv_artifact: "awsenv_{{ awsenv_release_platform }}_{{awsenv_release_cpuset}}"
